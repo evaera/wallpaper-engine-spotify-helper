@@ -4,9 +4,11 @@ A helper application that forwards your Spotify listening status to Wallpaper En
 
 I made this for myself, I don't expect anyone else to use it, but if you want it, here it is.
 
+[**Click here to download the installer.**](https://github.com/evaera/wallpaper-engine-spotify-helper/releases/latest)
+
 ## Wallpaper/Client API
 
-From the client, connect via a socket.io client to `http://localhost:47621` and listen to the `song` event.
+From the client, connect via a socket.io client to `http://localhost:47621` and listen to the `song` event. It'll be sent every 5 seconds.
 
 ```js
 
