@@ -19,8 +19,6 @@ io.on('connection', socket => {
   console.log('Client connected.')
 })
 
-console.log(app.getPath('userData'))
-
 httpServer.listen(PORT)
 
 app.on('ready', () => {
