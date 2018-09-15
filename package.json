@@ -1,0 +1,29 @@
+{
+  "name": "wallpaper-engine-spotify-helper",
+  "version": "0.0.1",
+  "build": {
+    "appId": "io.eryn.wallpaper-engine-spotify-helper",
+    "productName": "Wallpaper Engine Spotify Helper"
+  },
+  "scripts": {
+    "wbuild": "tsc",
+    "wwatch": "tsc -w",
+    "wstart": "npm run build && electron ./out/main.js"
+  },
+  "main": "./out/main.js",
+  "devDependencies": {
+    "@types/express": "^4.16.0",
+    "@types/query-string": "^6.1.0",
+    "@types/socket.io": "^1.4.38",
+    "tslint": "^5.11.0",
+    "tslint-config-standard": "^8.0.1",
+    "typescript": "^3.0.3",
+    "electron": "^2.0.8"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "express": "^4.16.3",
+    "query-string": "^6.1.0",
+    "socket.io": "^2.1.1"
+  }
+}
