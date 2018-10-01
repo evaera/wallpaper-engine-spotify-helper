@@ -1,6 +1,6 @@
 {
   "name": "wallpaper-engine-spotify-helper",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "build": {
     "appId": "io.eryn.wallpaper-engine-spotify-helper",
     "productName": "Wallpaper Engine Spotify Helper"
