@@ -86,6 +86,8 @@
       artist.innerText = artistText
       art.src = artUrl
       bg.style.backgroundImage = `url("${artUrl}")`
+
+      art.style.visibility = artUrl.length > 0 ? 'visible' : 'hidden'
     }
 
     socket.on('song', track => {
@@ -96,6 +98,8 @@
         update('', '', '')
       }
     })
+
+    update('', '', '')
   </script>
 </body>
 </html>
