@@ -15,6 +15,10 @@ server.get('/overlay', (req: express.Request, res: express.Response) => {
   res.sendFile(path.join(__dirname, '..', 'html', 'window.html'))
 })
 
+server.get('/overlay-art', (req: express.Request, res: express.Response) => {
+  res.sendFile(path.join(__dirname, '..', 'html', 'window-art.html'))
+})
+
 io.on('connection', socket => {
   console.log('Client connected.')
 })

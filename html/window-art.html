@@ -13,13 +13,13 @@
   <style>
     body {
       color: white;
-      background: transparent;
+      background: black;
       font-family: Roboto;
-      /* margin-left: 1in; */
-      /* text-align: center; */
+      margin: 0;
+      padding: 0;
     }
 
-    div {
+    #content {
       margin: 0.5in;
       margin-left: 1in;
     }
@@ -27,6 +27,11 @@
     img {
       float: left;
       margin-right: 0.5in;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    h1, h2 {
+      text-shadow: 0 0 14px rgba(0, 0, 0, 0.5);
     }
 
     h1 {
@@ -45,25 +50,42 @@
       font-size: 0.75in;
       margin: 0;
     }
+
+    #bg {
+      background-size: cover;
+      z-index: -1;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      filter: blur(10px);
+      background-position-y: center;
+    }
   </style>
 </head>
 <body>
-  <div>
+  <div id="bg">
+
+  </div>
+  <div id="content">
     <img src="" alt="" width="300" height="300">
     <h1></h1>
     <h2></h2>
   </div>
 
   <script>
-    const socket = io()
+    const socket = io('http://localhost:47621')
     const title = document.querySelector('h1')
     const artist = document.querySelector('h2')
     const art = document.querySelector('img')
+    const bg = document.querySelector('#bg')
 
     const update = (titleText, artistText, artUrl) => {
       title.innerText = titleText
       artist.innerText = artistText
       art.src = artUrl
+      bg.style.backgroundImage = `url("${artUrl}")`
     }
 
     socket.on('song', track => {
