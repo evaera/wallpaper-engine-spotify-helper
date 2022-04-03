@@ -1,31 +1,33 @@
 import { BrowserWindow } from 'electron'
 import { EventEmitter } from 'events'
-import * as queryString from 'query-string'
-import { AUTH_URL, CSRF_STATE, REDIRECT_URI } from './constants'
+//import * as queryString from 'query-string'
+//import { AUTH_URL, CSRF_STATE, REDIRECT_URI } from './constants'
+import { AUTH_URL, REDIRECT_URI } from './constants'
 
-interface AuthResponse {
-  access_token: string
-  expires_in: number
-  state: string
-  token_type: string
-}
+// interface AuthResponse {
+//   access_token: string;
+//   expires_in: number;
+//   token_type: string;
+//   state: string;
+// }
 
 export declare interface Login {
-  on (event: 'authorized', cb: (token: string) => any): this
+  on(event: 'authorized', cb: (token: string) => any): this
 }
 
 export class Login extends EventEmitter {
   private window: BrowserWindow
   private isAuthorized = false
 
-  constructor () {
+  constructor() {
     super()
 
     this.window = new BrowserWindow({
       center: true,
       width: 450,
       height: 650,
-      resizable: false,
+      //resizable: false,
+      resizable: true,
       webPreferences: {
         sandbox: true
       },
@@ -34,22 +36,31 @@ export class Login extends EventEmitter {
     })
 
     this.window.setMenu(null)
+    this.window.webContents.openDevTools();
 
     const extractFromUrl = ((e: Electron.Event, url: string) => {
       if (url.startsWith(REDIRECT_URI)) {
         e.preventDefault()
         this.window.hide()
+        console.log("url: " + REDIRECT_URI);
 
-        const params: AuthResponse = queryString.parse(url.replace(REDIRECT_URI, ''))
+        //const params: AuthResponse = queryString.parse(url.replace(REDIRECT_URI, ''))
+        // var params: AuthResponse = {
+        //   access_token: "string",
+        //   expires_in: 1234,
+        //   token_type: "string",
+        //   state: "string",
+        // };
 
-        if (params.state === CSRF_STATE) {
-          this.isAuthorized = true
-          this.emit('authorized', params.access_token)
-        }
+
+        // if (params.state === CSRF_STATE) {
+        //   this.isAuthorized = true
+        //   this.emit('authorized', params.access_token)
+        // }
       }
     }).bind(this)
 
-    this.window.webContents.on('did-get-redirect-request', (e, oldUrl, newUrl) => {
+    this.window.webContents.on('will-redirect', (e, oldUrl, newUrl) => {
       extractFromUrl(e, newUrl)
     })
 
@@ -64,7 +75,7 @@ export class Login extends EventEmitter {
     })
   }
 
-  authorize () {
+  authorize() {
     this.isAuthorized = false
     this.window.loadURL(AUTH_URL)
     setTimeout(() => {
